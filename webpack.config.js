@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'src/app.jsx')
+    path.join(__dirname, 'src/index.jsx')
   ],
   resolve: {
     root: [
@@ -41,7 +41,8 @@ module.exports = {
       loader: 'babel',
       query:
       {
-        presets:['es2015','react']
+        presets:['es2015','react'],
+		plugins: ['transform-object-rest-spread']
       }
     }, {
       test: /\.css$/,
