@@ -6,7 +6,7 @@ import Products from './components/products'
 
 export default (
 	<Route path='/' component={App}>
-		<IndexRoute component={Customers} />
+		<Route path='customers' component={Customers} />
 		<Route path='products' component={Products} />
 	</Route>
 )

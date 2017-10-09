@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Navigation from './nav';
 
 export default class App extends Component {
 	render() {
 		return(
 			<div>
-				App component
+				<Navigation />
 				{this.props.children}
 			</div>
 		)

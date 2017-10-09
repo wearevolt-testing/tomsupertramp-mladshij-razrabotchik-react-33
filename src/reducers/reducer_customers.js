@@ -1,4 +1,4 @@
-import {  FETCH_CUSTOMERS } from "../actions/index";
+import {  FETCH_CUSTOMERS } from '../actions/index';
 
 const INITIAL_STATE = { customers: [] };
 
