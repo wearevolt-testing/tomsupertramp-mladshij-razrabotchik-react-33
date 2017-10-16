@@ -25,15 +25,6 @@ const Navigation = () => {
 						Customers
 					</NavItem>
 				</LinkContainer>
-				{/*<NavItem eventKey={1}>*/}
-					{/*<Link to='/'>Invoices</Link>*/}
-				{/*</NavItem>*/}
-				{/*<NavItem eventKey={2}>*/}
-					{/*<Link to='/products'>Products</Link>*/}
-				{/*</NavItem>*/}
-				{/*<NavItem eventKey={3}>*/}
-					{/*<Link to='/customers'>Customers</Link>*/}
-				{/*</NavItem>*/}
 			</Nav>
 		</Navbar>
 	)
