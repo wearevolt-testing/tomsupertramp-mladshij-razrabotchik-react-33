@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchProducts, createProduct, openModal, closeModal } from '../actions/index';
-import { Button, Grid, Row, Col, Table } from 'react-bootstrap';
+import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
 import Popup from '../components/popup';
 import ProductNew from './product_new';
 
@@ -12,14 +12,15 @@ class Products extends Component {
 	}
 
 	onCreate() {
-		this.props.openModal('CREATE_PRODUCT');
+		this.props.openModal('CREATE_PRODUCT',{title: 'Create product'});
 	}
 
-	onDelete() {
-		this.props.openModal('DELETE_CONFIRM');
+	onDelete(product) {
+		this.props.openModal('DELETE_CONFIRM',{title: 'Delete product?', id: product.id, type: 'products'});
 	}
 
 	renderProducts() {
+		console.log(this.props);
 		return this.props.products.products.map((product, ind) => {
 			const { id, name, price } = product;
 			return(
@@ -28,12 +29,13 @@ class Products extends Component {
 					<td>{name}</td>
 					<td>{price}</td>
 					<td>
-						<Button  bsStyle="link">Edit</Button>
-						<Button onClick={this.onDelete.bind(this)}
-								bsStyle="link"
-								className='col-lg-offset-1'>
-							Delete
-						</Button>
+						<ButtonGroup>
+							<Button  bsStyle="link">Edit</Button>
+							<Button onClick={this.onDelete.bind(this, product)}
+									bsStyle="link">
+								Delete
+							</Button>
+						</ButtonGroup>
 					</td>
 				</tr>
 			)
@@ -71,8 +73,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
 	return {
-		products: state.products,
-		// showModal: state.showModal
+		products: state.products
 	};
 }
 

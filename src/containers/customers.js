@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCustomers, openModal, closeModal } from '../actions/index';
-import { Button, Grid, Row, Col, Table } from 'react-bootstrap';
+import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
 import Popup from '../components/popup';
 import CustomerNew from './customer_new';
-import ModalDelete from '../components/modal_delete';
+import ModalDelete from './modal_delete';
 
 class Customers extends Component {
 
@@ -14,11 +14,17 @@ class Customers extends Component {
 	}
 
 	onCreate() {
-		this.props.openModal('CREATE_CUSTOMER');
+		this.props.openModal('CREATE_CUSTOMER', {
+			title: 'Create customer'
+		});
 	}
 
-	onDelete() {
-		this.props.openModal('DELETE_CONFIRM');
+	onDelete(customer) {
+		this.props.openModal('DELETE_CONFIRM', {
+			title: 'Delete customer?',
+			id: customer.id,
+			type: 'customers'
+		});
 	}
 
 	renderCustomers() {
@@ -31,12 +37,13 @@ class Customers extends Component {
 					<td>{address}</td>
 					<td>{phone}</td>
 					<td>
-						<Button  bsStyle="link">Edit</Button>
-						<Button onClick={this.onDelete.bind(this)}
-						   bsStyle="link"
-						   className='col-lg-offset-1'>
-							Delete
-						</Button>
+						<ButtonGroup>
+							<Button  bsStyle="link">Edit</Button>
+							<Button onClick={this.onDelete.bind(this, customer)}
+							   bsStyle="link">
+								Delete
+							</Button>
+						</ButtonGroup>
 					</td>
 				</tr>
 			)

@@ -6,7 +6,7 @@ import { closeModal } from "../actions/index";
 import Popup from '../components/popup';
 import CustomerNew from './customer_new';
 import ProductNew from './product_new';
-import ModalDelete from '../components/modal_delete';
+import ModalDelete from './modal_delete';
 
 const MODALS = {
 	'CREATE_PRODUCT': ProductNew,
@@ -22,8 +22,8 @@ class RootModal extends Component {
 		}
 		const SpecificModal = MODALS[this.props.modal.modalType];
 		return (
-			<Popup show={true} onHide={this.props.closeModal} title='Create'>
-				<SpecificModal />
+			<Popup show={true} onHide={this.props.closeModal} title={this.props.modal.modalProps.title}>
+				<SpecificModal {...this.props} />
 			</Popup>
 		)
 	}

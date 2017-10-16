@@ -8,6 +8,7 @@ export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 
 const URL = '/api';
 
@@ -27,9 +28,7 @@ export function closeModal() {
 	};
 }
 
-
-
-export function fetchCustomers() {
+export function fetchCustomers(key) {
 	const request = axios.get(`${URL}/customers`);
 	return {
 		type: FETCH_CUSTOMERS,
@@ -73,9 +72,18 @@ export function deleteCustomer(id) {
 }
 
 export function deleteProduct(id) {
+
 	const request = axios.delete(`${URL}/products/${id}`);
 	return {
 		type: DELETE_PRODUCT,
+		payload: request
+	}
+}
+
+export function editProduct(id, props) {
+	const request = axios.delete(`${URL}/products/${id}`, props);
+	return {
+		type: EDIT_PRODUCT,
 		payload: request
 	}
 }
