@@ -8,7 +8,8 @@ export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';
 export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const FETCH_PRODUCT = 'FETCH_PRODUCT';
+export const FETCH_CUSTOMER = 'FETCH_CUSTOMER';
 
 const URL = '/api';
 
@@ -80,10 +81,20 @@ export function deleteProduct(id) {
 	}
 }
 
-export function editProduct(id, props) {
-	const request = axios.delete(`${URL}/products/${id}`, props);
+export function fetchProduct(id, props) {
+	const request = axios.get(`${URL}/products/${id}`, props);
+	console.log('EDIT PRODUCT');
 	return {
-		type: EDIT_PRODUCT,
+		type: FETCH_PRODUCT,
+		payload: request
+	}
+}
+
+export function fetchCustomer(id, props) {
+	const request = axios.get(`${URL}/customers/${id}`, props);
+	console.log('EDIT CUSTOMER');
+	return {
+		type: FETCH_PRODUCT,
 		payload: request
 	}
 }

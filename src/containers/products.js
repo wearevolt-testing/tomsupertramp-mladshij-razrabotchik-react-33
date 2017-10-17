@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchProducts, createProduct, openModal, closeModal } from '../actions/index';
+import { fetchProducts, fetchProduct, openModal, closeModal } from '../actions/index';
 import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
-import Popup from '../components/popup';
-import ProductNew from './product_new';
 
 class Products extends Component {
 	componentWillMount() {
@@ -18,9 +16,14 @@ class Products extends Component {
 	onDelete(product) {
 		this.props.openModal('DELETE_CONFIRM',{title: 'Delete product?', id: product.id, type: 'products'});
 	}
+	onEdit(product) {
+		this.props.fetchProduct(product.id).then((res) => {
+			console.log(res);
+			this.props.openModal('EDIT_PRODUCT', {title: 'Edit product'});
+		});
+	}
 
 	renderProducts() {
-		console.log(this.props);
 		return this.props.products.products.map((product, ind) => {
 			const { id, name, price } = product;
 			return(
@@ -30,7 +33,7 @@ class Products extends Component {
 					<td>{price}</td>
 					<td>
 						<ButtonGroup>
-							<Button  bsStyle="link">Edit</Button>
+							<Button onClick={this.onEdit.bind(this, product)} bsStyle="link">Edit</Button>
 							<Button onClick={this.onDelete.bind(this, product)}
 									bsStyle="link">
 								Delete
@@ -68,7 +71,7 @@ class Products extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchProducts, openModal, closeModal }, dispatch);
+	return bindActionCreators({ fetchProducts, fetchProduct, openModal, closeModal }, dispatch);
 }
 
 function mapStateToProps(state) {

@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import { closeModal } from "../actions/index";
 
 import Popup from '../components/popup';
-import CustomerNew from './customer_new';
-import ProductNew from './product_new';
+import CustomerModal from './customer_modal';
+import ProductModal from './product_modal';
 import ModalDelete from './modal_delete';
 
 const MODALS = {
-	'CREATE_PRODUCT': ProductNew,
-	'CREATE_CUSTOMER': CustomerNew,
+	'CREATE_PRODUCT': ProductModal,
+	'CREATE_CUSTOMER': CustomerModal,
 	'DELETE_CONFIRM': ModalDelete
 };
 

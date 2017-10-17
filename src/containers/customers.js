@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCustomers, openModal, closeModal } from '../actions/index';
+import { fetchCustomers, fetchCustomer, openModal, closeModal } from '../actions/index';
 import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
-import Popup from '../components/popup';
-import CustomerNew from './customer_new';
-import ModalDelete from './modal_delete';
 
 class Customers extends Component {
 
@@ -27,6 +24,14 @@ class Customers extends Component {
 		});
 	}
 
+	onEdit(customer) {
+		this.props.fetchCustomer(customer.id).then((res) => {
+			console.log(this.props);
+			this.props.openModal('CREATE_PRODUCT', {title: 'Edit customer'});
+		});
+
+	}
+
 	renderCustomers() {
 		return this.props.customers.customers.map((customer, ind) => {
 			const { id, name, address, phone } = customer;
@@ -38,7 +43,7 @@ class Customers extends Component {
 					<td>{phone}</td>
 					<td>
 						<ButtonGroup>
-							<Button  bsStyle="link">Edit</Button>
+							<Button onClick={this.onEdit.bind(this, customer)} bsStyle="link">Edit</Button>
 							<Button onClick={this.onDelete.bind(this, customer)}
 							   bsStyle="link">
 								Delete
@@ -78,12 +83,13 @@ class Customers extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCustomers, openModal, closeModal }, dispatch);
+	return bindActionCreators({ fetchCustomers, fetchCustomer, openModal, closeModal }, dispatch);
 }
 
 function mapStateToProps(state) {
 	return {
-		customers: state.customers
+		customers: state.customers,
+		customer: state.customers.customer
 	};
 }
 
