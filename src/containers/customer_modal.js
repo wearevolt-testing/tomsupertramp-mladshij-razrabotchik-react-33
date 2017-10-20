@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { createCustomer, closeModal, fetchCustomers } from '../actions/index';
+import { createCustomer, closeModal, fetchCustomers, editCustomer } from '../actions/index';
 import { Button } from 'react-bootstrap';
 
 class CustomerNew extends Component {
 
 	onSubmit(props) {
-		this.props.createCustomer(props).then(() => {
-			this.props.closeModal();
-			this.props.fetchCustomers();
-		});
+		if(!this.props.modal.modalProps.edit) {
+			this.props.createCustomer(props).then(() => {
+				this.props.closeModal();
+				this.props.fetchCustomers();
+			});
+		} else {
+			this.props.editCustomer(this.props.modal.modalProps.customer.id, props).then(() => {
+				this.props.closeModal();
+				this.props.fetchCustomers();
+			})
+		}
+
 	}
+
 
 	render() {
 		const { fields: { name, address, phone }, handleSubmit } = this.props;
+		if (this.props.modal.modalProps.edit) {
+			name.defaultValue = this.props.modal.modalProps.customer.name;
+			address.defaultValue = this.props.modal.modalProps.customer.address;
+			phone.defaultValue = this.props.modal.modalProps.customer.phone;
+		}
+
 		return (
-			<form onSubmit = {handleSubmit(this.onSubmit.bind(this))}>
+			<form onSubmit = {handleSubmit(this.onSubmit.bind(this)) }>
 				<div className="form-group">
 					<label>Name</label>
 					<input type="text" className="form-control" {...name} />
@@ -28,7 +43,7 @@ class CustomerNew extends Component {
 					<label>Phone</label>
 					<input type="text" className="form-control" {...phone} />
 				</div>
-				<Button type="submit">Create</Button>
+				<Button type="submit">{this.props.modal.modalProps.edit ? 'Save' : 'Create'}</Button>
 			</form>
 		)
 	}
@@ -37,4 +52,4 @@ class CustomerNew extends Component {
 export default reduxForm({
 	form: 'CustomerNewForm',
 	fields: ['name','address','phone']
-}, null, { createCustomer, closeModal, fetchCustomers } )(CustomerNew);
+}, null, { createCustomer, closeModal, fetchCustomers, editCustomer } )(CustomerNew);

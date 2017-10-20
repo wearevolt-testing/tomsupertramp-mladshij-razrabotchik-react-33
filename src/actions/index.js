@@ -10,6 +10,8 @@ export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 export const FETCH_CUSTOMER = 'FETCH_CUSTOMER';
+export const EDIT_CUSTOMER = 'EDIT_CUSTOMER';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';
 
 const URL = '/api';
 
@@ -29,7 +31,7 @@ export function closeModal() {
 	};
 }
 
-export function fetchCustomers(key) {
+export function fetchCustomers() {
 	const request = axios.get(`${URL}/customers`);
 	return {
 		type: FETCH_CUSTOMERS,
@@ -81,20 +83,36 @@ export function deleteProduct(id) {
 	}
 }
 
-export function fetchProduct(id, props) {
-	const request = axios.get(`${URL}/products/${id}`, props);
-	console.log('EDIT PRODUCT');
+export function fetchProduct(id) {
+	const request = axios.get(`${URL}/products/${id}`);
 	return {
 		type: FETCH_PRODUCT,
 		payload: request
 	}
 }
 
-export function fetchCustomer(id, props) {
-	const request = axios.get(`${URL}/customers/${id}`, props);
-	console.log('EDIT CUSTOMER');
+export function fetchCustomer(id) {
+	const request = axios.get(`${URL}/customers/${id}`);
 	return {
-		type: FETCH_PRODUCT,
+		type: FETCH_CUSTOMER,
+		payload: request
+	}
+}
+
+export function editProduct(id, props) {
+	const request = axios.put(`${URL}/products/${id}`, props);
+
+	return {
+		type: EDIT_PRODUCT,
+		payload: request
+	}
+}
+
+export function editCustomer(id, props) {
+	const request = axios.put(`${URL}/customers/${id}`, props);
+
+	return {
+		type: EDIT_CUSTOMER,
 		payload: request
 	}
 }

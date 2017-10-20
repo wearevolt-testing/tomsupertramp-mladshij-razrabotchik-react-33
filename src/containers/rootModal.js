@@ -9,8 +9,8 @@ import ProductModal from './product_modal';
 import ModalDelete from './modal_delete';
 
 const MODALS = {
-	'CREATE_PRODUCT': ProductModal,
-	'CREATE_CUSTOMER': CustomerModal,
+	'MODAL_PRODUCT': ProductModal,
+	'MODAL_CUSTOMER': CustomerModal,
 	'DELETE_CONFIRM': ModalDelete
 };
 

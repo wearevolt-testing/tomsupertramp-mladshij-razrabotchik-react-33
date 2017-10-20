@@ -10,21 +10,26 @@ class Products extends Component {
 	}
 
 	onCreate() {
-		this.props.openModal('CREATE_PRODUCT',{title: 'Create product'});
+		this.props.openModal('MODAL_PRODUCT',{title: 'Create product'});
 	}
 
 	onDelete(product) {
 		this.props.openModal('DELETE_CONFIRM',{title: 'Delete product?', id: product.id, type: 'products'});
 	}
 	onEdit(product) {
-		this.props.fetchProduct(product.id).then((res) => {
-			console.log(res);
-			this.props.openModal('EDIT_PRODUCT', {title: 'Edit product'});
+		this.props.fetchProduct(product.id).then(() => {
+			this.props.openModal(
+				'MODAL_PRODUCT',
+				{
+					title: 'Edit product',
+					edit: true,
+					product: this.props.products.product
+				});
 		});
 	}
 
 	renderProducts() {
-		return this.props.products.products.map((product, ind) => {
+		return this.props.products.all.map((product, ind) => {
 			const { id, name, price } = product;
 			return(
 				<tr key={id}>
@@ -34,10 +39,7 @@ class Products extends Component {
 					<td>
 						<ButtonGroup>
 							<Button onClick={this.onEdit.bind(this, product)} bsStyle="link">Edit</Button>
-							<Button onClick={this.onDelete.bind(this, product)}
-									bsStyle="link">
-								Delete
-							</Button>
+							<Button onClick={this.onDelete.bind(this, product)} bsStyle="link">Delete</Button>
 						</ButtonGroup>
 					</td>
 				</tr>

@@ -11,7 +11,7 @@ class Customers extends Component {
 	}
 
 	onCreate() {
-		this.props.openModal('CREATE_CUSTOMER', {
+		this.props.openModal('MODAL_CUSTOMER', {
 			title: 'Create customer'
 		});
 	}
@@ -25,15 +25,19 @@ class Customers extends Component {
 	}
 
 	onEdit(customer) {
-		this.props.fetchCustomer(customer.id).then((res) => {
-			console.log(this.props);
-			this.props.openModal('CREATE_PRODUCT', {title: 'Edit customer'});
+		this.props.fetchCustomer(customer.id).then(() => {
+			this.props.openModal(
+				'MODAL_CUSTOMER',
+				{
+					title: 'Edit customer',
+					edit: true,
+					customer: this.props.customers.customer
+				});
 		});
-
 	}
 
 	renderCustomers() {
-		return this.props.customers.customers.map((customer, ind) => {
+		return this.props.customers.all.map((customer, ind) => {
 			const { id, name, address, phone } = customer;
 			return(
 				<tr key={id}>
@@ -44,10 +48,7 @@ class Customers extends Component {
 					<td>
 						<ButtonGroup>
 							<Button onClick={this.onEdit.bind(this, customer)} bsStyle="link">Edit</Button>
-							<Button onClick={this.onDelete.bind(this, customer)}
-							   bsStyle="link">
-								Delete
-							</Button>
+							<Button onClick={this.onDelete.bind(this, customer)} bsStyle="link">Delete</Button>
 						</ButtonGroup>
 					</td>
 				</tr>
@@ -88,8 +89,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
 	return {
-		customers: state.customers,
-		customer: state.customers.customer
+		customers: state.customers
 	};
 }
 
