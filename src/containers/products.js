@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchProducts, fetchProduct, openModal, closeModal } from '../actions/index';
 import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
+import DocumentTitle from 'react-document-title';
 
 class Products extends Component {
 	componentWillMount() {
@@ -46,28 +47,31 @@ class Products extends Component {
 			)
 		})
 	}
+
 	render() {
 		return(
-			<Grid>
-				<Row>
-					<Col xs={12}>
-						<h1>Products <Button onClick={this.onCreate.bind(this)}>Create</Button></h1>
-						<Table>
-							<thead>
-							<tr>
-								<th>#</th>
-								<th>Name</th>
-								<th>Price</th>
-								<th />
-							</tr>
-							</thead>
-							<tbody>
-							{this.renderProducts()}
-							</tbody>
-						</Table>
-					</Col>
-				</Row>
-			</Grid>
+			<DocumentTitle title='Products'>
+				<Grid>
+					<Row>
+						<Col xs={12}>
+							<h1>Products<Button onClick={this.onCreate.bind(this)}>Create</Button></h1>
+							<Table>
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>Price</th>
+									<th />
+								</tr>
+								</thead>
+								<tbody>
+								{this.renderProducts()}
+								</tbody>
+							</Table>
+						</Col>
+					</Row>
+				</Grid>
+			</DocumentTitle>
 		)
 	}
 }

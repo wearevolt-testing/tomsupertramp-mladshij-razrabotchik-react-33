@@ -5,7 +5,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	devtool: 'eval-source-map',
+	devtool: 'cheap-module-source-map',
 	entry: [
 		path.join(__dirname, 'src/index.jsx')
 	],
@@ -18,7 +18,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, '/public/'),
 		filename: 'bundle.js',
-		// publicPath: '/'
+		publicPath: ''
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

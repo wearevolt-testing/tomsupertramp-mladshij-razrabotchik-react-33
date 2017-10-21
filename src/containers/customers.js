@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCustomers, fetchCustomer, openModal, closeModal } from '../actions/index';
 import { Button, ButtonGroup, Grid, Row, Col, Table } from 'react-bootstrap';
+import DocumentTitle from 'react-document-title';
 
 class Customers extends Component {
 
@@ -58,27 +59,29 @@ class Customers extends Component {
 
 	render() {
 		return(
-			<Grid>
-				<Row>
-					<Col xs={12}>
-						<h1>Customers <Button onClick={this.onCreate.bind(this)}>Create</Button></h1>
-						<Table>
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Name</th>
-									<th>Address</th>
-									<th>Phone</th>
-									<th />
-								</tr>
-							</thead>
-							<tbody>
-							{this.renderCustomers()}
-							</tbody>
-						</Table>
-					</Col>
-				</Row>
-			</Grid>
+			<DocumentTitle title='Customers'>
+				<Grid>
+					<Row>
+						<Col xs={12}>
+							<h1>Customers <Button onClick={this.onCreate.bind(this)}>Create</Button></h1>
+							<Table>
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>Address</th>
+										<th>Phone</th>
+										<th />
+									</tr>
+								</thead>
+								<tbody>
+								{this.renderCustomers()}
+								</tbody>
+							</Table>
+						</Col>
+					</Row>
+				</Grid>
+			</DocumentTitle>
 		)
 	}
 }
